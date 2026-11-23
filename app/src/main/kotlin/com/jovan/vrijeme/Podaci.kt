@@ -104,7 +104,7 @@ class Vrijeme(val json: String, val preuzeto: Long) {
 }
 
 object Tekst {
-    val daniPuni = arrayOf("nedjelja", "ponedjeljak", "utorak", "srijeda", "četvrtak", "petak", "subota")
+    val daniPuni = arrayOf("neđelja", "poneđeljak", "utorak", "srijeda", "četvrtak", "petak", "subota")
     val mjeseci = arrayOf(
         "januar", "februar", "mart", "april", "maj", "jun",
         "jul", "avgust", "septembar", "oktobar", "novembar", "decembar"
@@ -196,7 +196,7 @@ object Praznici {
             c.add(Calendar.DAY_OF_MONTH, pomak)
             l.add(P(c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), ime))
         }
-        dodaj(-2, "Veliki petak"); dodaj(0, "Vaskrs"); dodaj(1, "Vaskršnji ponedjeljak")
+        dodaj(-2, "Veliki petak"); dodaj(0, "Vaskrs"); dodaj(1, "Vaskršnji poneđeljak")
         return l
     }
 
