@@ -160,6 +160,7 @@ class MainActivity : Activity() {
             "Položaj ekrana: ${orNazivi[prefs.getInt("orijentacija", 0)]}",
             "Noćno zatamnjenje (23–6 h): " + if (prefs.getBoolean("zatamni", true)) "uključeno" else "isključeno",
             "Sekunde: " + if (prikaz.sekunde) "prikazane" else "sakrivene",
+            "Pokreni pri paljenju tableta: " + if (prefs.getBoolean("boot", true)) "da" else "ne",
             "Osvježi prognozu sada",
             "Zatvori aplikaciju"
         )
@@ -178,8 +179,13 @@ class MainActivity : Activity() {
                     }
                     2 -> { prefs.edit().putBoolean("zatamni", !prefs.getBoolean("zatamni", true)).apply(); svjetlina() }
                     3 -> { prefs.edit().putBoolean("sekunde", !prikaz.sekunde).apply(); ucitajPodesavanja() }
-                    4 -> { Toast.makeText(this, "Preuzimam prognozu…", Toast.LENGTH_SHORT).show(); osvjeziVrijeme() }
-                    5 -> finish()
+                    4 -> {
+                        val da = !prefs.getBoolean("boot", true)
+                        prefs.edit().putBoolean("boot", da).apply()
+                        Toast.makeText(this, if (da) "Sat će se pokretati sa tabletom" else "Sat se više neće sam pokretati", Toast.LENGTH_LONG).show()
+                    }
+                    5 -> { Toast.makeText(this, "Preuzimam prognozu…", Toast.LENGTH_SHORT).show(); osvjeziVrijeme() }
+                    6 -> finish()
                 }
             }
             .setOnDismissListener { sakrijSistem() }
@@ -244,9 +250,10 @@ class MainActivity : Activity() {
     }
 }
 
-/** Kad se tablet upali, odmah otvori sat. */
+/** Kad se tablet upali, odmah otvori sat (ako to nije isključeno u podešavanjima). */
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
+        if (!context.getSharedPreferences("vrijeme", Context.MODE_PRIVATE).getBoolean("boot", true)) return
         val i = Intent(context, MainActivity::class.java)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
         context.startActivity(i)

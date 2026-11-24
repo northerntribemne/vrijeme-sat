@@ -19,9 +19,9 @@ i kartice koje se same smjenjuju. Sav tekst je na crnogorskom.
 
 ## Upotreba
 
-- Pokreće se sama kad se tablet upali
+- Pokreće se sama kad se tablet upali (može se isključiti u podešavanjima)
 - **Dodir** — sljedeća kartica
-- **Dugi pritisak** — podešavanja: grad, položaj ekrana, noćno zatamnjenje, sekunde
+- **Dugi pritisak** — podešavanja: grad, položaj ekrana, noćno zatamnjenje, sekunde, pokretanje pri paljenju
 
 Prognoza: [Open-Meteo](https://open-meteo.com) (bez ključa), osvježava se na 15 min i čuva se za rad bez interneta.
 
